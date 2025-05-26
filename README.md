@@ -47,7 +47,7 @@ The project includes a toggle to switch between light and dark themes using cust
 
 ### 📚 Learn More
 
-Read the full tutorial on [Djamware.com]() to explore each component and how it was built step-by-step.
+Read the full tutorial on [Djamware.com](https://www.djamware.com/post/68343e7274b58b69848359cd/angular-material-components-tutorial-with-examples) to explore each component and how it was built step-by-step.
 
 ### 📝 License
 
