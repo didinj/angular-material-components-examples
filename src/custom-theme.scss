@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Light theme palettes
+$light-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$light-accent: mat.m2-define-palette(mat.$m2-pink-palette);
+$light-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+// Dark theme palettes
+$dark-primary: mat.m2-define-palette(mat.$m2-deep-purple-palette);
+$dark-accent: mat.m2-define-palette(mat.$m2-lime-palette);
+$dark-warn: mat.m2-define-palette(mat.$m2-orange-palette);
+
+// Light theme definition
+$light-theme: mat.m2-define-light-theme((color: (primary: $light-primary,
+                accent: $light-accent,
+                warn: $light-warn,
+            )));
+
+// Dark theme definition
+$dark-theme: mat.m2-define-dark-theme((color: (primary: $dark-primary,
+                accent: $dark-accent,
+                warn: $dark-warn,
+            )));
+
+// Create classes to toggle
+.light-theme {
+    @include mat.all-component-colors($light-theme);
+}
+
+.dark-theme {
+    @include mat.all-component-colors($dark-theme);
+}

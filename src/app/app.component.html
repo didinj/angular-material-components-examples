@@ -1,0 +1,253 @@
+<mat-sidenav-container class="example-container" style="height: 400px;">
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item href="#">Home</a>
+      <a mat-list-item href="#">Users</a>
+      <a mat-list-item href="#">Settings</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle sidenav">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My Angular Material App</span>
+    </mat-toolbar>
+
+    <div style="padding: 16px;">
+      <!-- Keep your existing components here -->
+      <p>This is the main content area.</p>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div style="padding: 16px;">
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Theme Toggle</mat-card-title>
+
+    <button mat-raised-button (click)="toggleTheme()">
+      Toggle {{ isDarkTheme ? 'Light' : 'Dark' }} Theme
+    </button>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Angular Material Card</mat-card-title>
+      <mat-card-subtitle>With header and content</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width: 100%; margin-top: 16px;">
+        <mat-label>Enter your name</mat-label>
+        <input matInput [formControl]="nameControl" />
+      </mat-form-field>
+
+      <p>Your name: {{ nameControl.value }}</p>
+
+      <button mat-raised-button color="accent" style="margin-top: 8px;" (click)="submitName()">
+        Submit
+      </button>
+
+      <button mat-raised-button color="primary" (click)="openDialog()" style="margin-left: 8px;">
+        Open Dialog
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>User List</mat-card-title>
+
+    <table mat-table [dataSource]="users" class="mat-elevation-z8" style="width: 100%; margin-top: 16px;">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Tabs</mat-card-title>
+
+    <mat-tab-group>
+      <mat-tab label="Overview">
+        <p style="padding: 16px;">
+          This is the overview tab. You can place any content here.
+        </p>
+      </mat-tab>
+      <mat-tab label="Users">
+        <p style="padding: 16px;">
+          You have {{ users.length }} users listed in the table above.
+        </p>
+      </mat-tab>
+      <mat-tab label="Settings">
+        <p style="padding: 16px;">
+          Settings tab content can include forms, toggles, or anything else.
+        </p>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Stepper</mat-card-title>
+
+    <mat-horizontal-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="formGroup1">
+        <form [formGroup]="formGroup1">
+          <ng-template matStepLabel>Step 1: Basic Info</ng-template>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Enter something</mat-label>
+            <input matInput formControlName="firstCtrl" required />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext [disabled]="!formGroup1.valid">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="formGroup2">
+        <form [formGroup]="formGroup2">
+          <ng-template matStepLabel>Step 2: Confirmation</ng-template>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Confirm input</mat-label>
+            <input matInput formControlName="secondCtrl" required />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Datepicker</mat-card-title>
+    <mat-form-field appearance="outline" style="width: 100%; margin-top: 16px;">
+      <mat-label>Select a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <p *ngIf="selectedDate" style="margin-top: 12px;">
+      You picked: <strong>{{ selectedDate | date:'longDate' }}</strong>
+    </p>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Autocomplete</mat-card-title>
+
+    <mat-form-field appearance="outline" style="width: 100%; margin-top: 16px;">
+      <mat-label>Choose a programming language</mat-label>
+      <input type="text" matInput [formControl]="languageControl" [matAutocomplete]="auto" />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredLanguages" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Expansion Panel</mat-card-title>
+
+    <mat-accordion multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            What is Angular Material?
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Angular Material is a UI component library for Angular developers.</p>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            How do I install it?
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Run <code>ng add angular/material</code> to install and configure.</p>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Can I customize the theme?
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Yes! Angular Material supports custom themes and dark mode.</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Chips</mat-card-title>
+
+    <mat-chip-set>
+      <mat-chip *ngFor="let tag of tags" [removable]="true" (removed)="removeTag(tag)">
+        {{ tag }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-set>
+
+    <mat-form-field style="margin-top: 16px;" appearance="outline">
+      <mat-label>New Tag</mat-label>
+      <input matInput [(ngModel)]="newTag" (keydown.enter)="addTag()" placeholder="Press Enter to add" />
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Angular Material Badge</mat-card-title>
+
+    <div style="display: flex; align-items: center; gap: 24px;">
+      <button mat-icon-button [matBadge]="notifications" matBadgeColor="warn">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button [matBadge]="messages" matBadgeColor="accent">
+        <mat-icon>mail</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Progress Spinner</mat-card-title>
+
+    <div style="text-align: center; margin: 16px 0;">
+      <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+      <button mat-raised-button color="primary" (click)="toggleLoading()">
+        {{ isLoading ? 'Stop Loading' : 'Start Loading' }}
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px;">
+    <mat-card-title>Progress Bar</mat-card-title>
+
+    <div style="margin: 16px 0;">
+      <mat-progress-bar *ngIf="showProgressBar" mode="determinate" [value]="progressValue"></mat-progress-bar>
+      <button mat-raised-button color="accent" (click)="startProgress()">
+        Start Progress
+      </button>
+    </div>
+  </mat-card>
+</div>
